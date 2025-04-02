@@ -44,6 +44,10 @@ if [[ ${input[target_pass]} != null ]]; then
   export SSHPASS=${input[target_pass]}
   args+=("--env-password")
 fi
+if [[ -n ${input[extra_args]} ]]; then
+  IFS=',' read -r -a extra_args <<< "${input[extra_args]}"
+  args+=("${extra_args[@]}")
+fi
 
 tmpdir=$(mktemp -d)
 cleanup() {
